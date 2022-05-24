@@ -1,4 +1,4 @@
-spark-submit --class KafkaTask\
+spark-submit --class Code.KafkaTask\
     --deploy-mode client\
     --num-executors 5 \
     --executor-cores 2 \
