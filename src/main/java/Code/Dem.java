@@ -26,8 +26,9 @@ public class Dem {
                 split(col("value"),"\t").getItem(6).cast("String").as("guid"),
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
 //        value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
-        System.out.println(value.select(max(col("time"))));
-        System.out.println(value.select(min(col("time"))));
+        value.select(min("time")).show();
+        value.select(max("time")).show();
+
 
     }
 }
