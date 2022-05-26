@@ -27,7 +27,7 @@ public class KafkaTask {
                 split(col("value"),"\t").getItem(6).cast("String").as("guid"),
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
 //        res=res.filter("time >= '2022-05-24 06:00:00' and time <= '2022-05-25 06:00:00'");
-        res=res.filter("time >= '2022-05-24 06:00:00'").filter("time <= '2022-05-26 06:00:00'");
+        res=res.filter("time >= '2022-05-24 06:00:00'");
         try {
             res.writeStream().format("console").outputMode("append").start().awaitTermination();
         } catch (StreamingQueryException e) {
