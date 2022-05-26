@@ -25,7 +25,7 @@ public class KafkaTask {
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
 //        value=value.filter("time >= '2022-05-24 06:00:00' and time <= '2022-05-25 06:00:00'");
         value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
-        value.show(false);
+        value.orderBy("time").show(false);
         Dataset<Row> res=value.groupBy(col("bannerId")).agg(count("guid"));
         res.show(false);
 //        try {
