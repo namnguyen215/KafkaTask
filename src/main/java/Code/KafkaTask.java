@@ -9,6 +9,8 @@ import static org.apache.spark.sql.functions.count;
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
 public class KafkaTask {
+    private String batDau;
+    private String ketThuc;
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder().master("yarn").getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
