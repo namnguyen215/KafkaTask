@@ -26,8 +26,7 @@ public class KafkaTask {
         value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
         Dataset<Row> res=value.groupBy(col("bannerId")).agg(hll_init_agg("guid").as("guid_hll"));
         res
-                .select("bannerId")
-                .select(hll_cardinality("guid_hll"))
+                .select(col("bannerId"),hll_cardinality("guid_hll"))
                 .show(false);
 
 
