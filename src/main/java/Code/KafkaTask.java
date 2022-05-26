@@ -28,13 +28,14 @@ public class KafkaTask {
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
 //        value=value.filter("time >= '2022-05-24 06:00:00' and time <= '2022-05-25 06:00:00'");
         value=value.filter("time >= '2022-05-24 06:00:00'");
-        try {
-            value.writeStream().format("console").outputMode("append").start().awaitTermination();
-        } catch (StreamingQueryException e) {
-            throw new RuntimeException(e);
-        } catch (TimeoutException e) {
-            throw new RuntimeException(e);
-        }
+        value.show(false);
+//        try {
+//            value.writeStream().format("console").outputMode("append").start().awaitTermination();
+//        } catch (StreamingQueryException e) {
+//            throw new RuntimeException(e);
+//        } catch (TimeoutException e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
 }
