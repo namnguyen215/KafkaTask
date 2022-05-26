@@ -16,6 +16,6 @@ public class Dem {
                 .option("startingOffsets", "earliest")
                 .option("endingOffsets", "latest")
                 .load();
-        df.count();
+        System.out.println(df.count());;
     }
 }
