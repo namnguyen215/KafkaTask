@@ -36,6 +36,11 @@
       <artifactId>spark-sql-kafka-0-10_2.12</artifactId>
       <version>3.2.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.swoop</groupId>
+      <artifactId>spark-alchemy_2.12</artifactId>
+      <version>1.2.0</version>
+    </dependency>
   </dependencies>
 
   <build>
