@@ -13,6 +13,7 @@ import static org.apache.spark.sql.functions.split;
 public class KafkaTask {
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder().master("yarn").getOrCreate();
+        spark.sparkContext().setLogLevel("ERROR");
         Dataset<Row> df = spark
                 .readStream()
                 .format("kafka")
@@ -24,7 +25,8 @@ public class KafkaTask {
         res=res.select(split(col("value"),"\t").getItem(0).cast("long").cast("timestamp").as("time"),
                 split(col("value"),"\t").getItem(6).cast("String").as("guid"),
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
-        res=res.filter("time >= '2022-05-24 06:00:00' and time <= '2022-05-25 06:00:00'");
+//        res=res.filter("time >= '2022-05-24 06:00:00' and time <= '2022-05-25 06:00:00'");
+        res=res.filter("time >= '2022-05-24 06:00:00'");
         try {
             res.writeStream().format("console").outputMode("append").start().awaitTermination();
         } catch (StreamingQueryException e) {
