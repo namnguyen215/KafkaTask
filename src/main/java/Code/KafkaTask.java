@@ -4,7 +4,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import com.swoop.alchemy.spark.expressions.hll.functions.*;
+import static com.swoop.alchemy.spark.expressions.hll.functions.*;
 import static org.apache.spark.sql.functions.count;
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
@@ -20,14 +20,15 @@ public class KafkaTask {
                 .option("startingOffsets", "earliest")
                 .load();
         Dataset<Row> value=df.selectExpr("CAST(value AS STRING)");
-
         value=value.select(split(col("value"),"\t").getItem(0).cast("long").cast("timestamp").as("time"),
                 split(col("value"),"\t").getItem(6).cast("String").as("guid"),
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
-//        value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
-        value.orderBy("time").show(false);
-        Dataset<Row> res=value.groupBy(col("bannerId")).agg(count("guid"));
-        res.show(false);
+        value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
+        Dataset<Row> res=value.groupBy(col("bannerId")).agg(hll_init_agg("guid").as("guid_hll"));
+        res
+                .select("bannerId")
+                .select(hll_cardinality("guid_hll"))
+                .show(false);
 
 
     }
