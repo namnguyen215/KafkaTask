@@ -36,7 +36,11 @@ public class WriteDataToParquet {
                 .drop(col("time"));
 
         try {
-            value.writeStream().format("parquet").option("path","hdfs:/mydata").start().awaitTermination();
+            value.writeStream().format("parquet")
+                    .outputMode("append")
+                    .option("path","hdfs://internship-hadoop105185:8120/mydata")
+                    .partitionBy("Date")
+                    .start().awaitTermination();
 //            value.writeStream().outputMode("append").format("console").start().awaitTermination();
 
         } catch (StreamingQueryException e) {
