@@ -27,7 +27,6 @@ public class WriteDataToParquet {
                 .option("kafka.bootstrap.servers", "10.3.68.20:9092, 10.3.68.21:9092, 10.3.68.23:9092, 10.3.68.26:9092, 10.3.68.28:9092, 10.3.68.32:9092, 10.3.68.47:9092, 10.3.68.48:9092, 10.3.68.50:9092, 10.3.68.52:9092")
                 .option("subscribe", "rt-queue_1")
                 .option("startingOffsets", "earliest")
-                .option("endingOffsets", "latest")
                 .load();
         Dataset<Row> value=df.selectExpr("CAST(value AS STRING)");
         value=value.select(split(col("value"),"\t").getItem(0).cast("long").cast("timestamp").as("time"),
