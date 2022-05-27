@@ -25,7 +25,9 @@ public class KafkaTask {
         value=value.select(split(col("value"),"\t").getItem(0).cast("long").cast("timestamp").as("time"),
                 split(col("value"),"\t").getItem(6).cast("String").as("guid"),
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
-        value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
+
+
+//        value=value.filter("time >= '2022-05-24 06:00:00' ").filter("time <= '2022-05-26 06:00:00'");
         Dataset<Row> res=value.groupBy(col("bannerId")).agg(hll_init_agg("guid").as("guid_hll"));
         res
                 .select(col("bannerId"),hll_cardinality("guid_hll"))
