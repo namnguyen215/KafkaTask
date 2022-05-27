@@ -3,6 +3,9 @@ package Code;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.streaming.StreamingQueryException;
+
+import java.util.concurrent.TimeoutException;
 
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
@@ -25,8 +28,15 @@ public class Dem {
         value=value.select(split(col("value"),"\t").getItem(0).cast("long").cast("timestamp").as("time"),
                 split(col("value"),"\t").getItem(6).cast("String").as("guid"),
                 split(col("value"),"\t").getItem(4).cast("String").as("bannerId"));
-        value.select(min("time")).show();
-        value.select(max("time")).show();
+        try {
+            value  .writeStream()
+                    .format("console")
+                    .start().awaitTermination();
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        } catch (StreamingQueryException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

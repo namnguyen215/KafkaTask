@@ -38,7 +38,7 @@ public class WriteDataToParquet {
 
         try {
 //            value.writeStream().format("parquet").option("path","hdfs:/mydata").start().awaitTermination();
-            value.writeStream().format("console").outputMode("append").start().awaitTermination();
+            value.writeStream().outputMode("append").format("console").start().awaitTermination();
 
         } catch (StreamingQueryException e) {
             throw new RuntimeException(e);
