@@ -4,6 +4,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQueryException;
+import org.apache.spark.sql.streaming.Trigger;
 
 import java.util.concurrent.TimeoutException;
 
@@ -36,7 +37,8 @@ public class WriteDataToParquet {
                 .drop(col("time"));
 
         try {
-            value.writeStream().format("parquet")
+            value.coalesce(1).writeStream().format("parquet")
+                    .trigger(Trigger.ProcessingTime("1 minute"))
                     .outputMode("append")
                     .option("path","hdfs://internship-hadoop105185:8120/mydata")
                     .option("checkpointLocation", "hdfs://internship-hadoop105185:8120/checkpoint")
