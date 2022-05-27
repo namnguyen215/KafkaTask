@@ -39,6 +39,7 @@ public class WriteDataToParquet {
             value.writeStream().format("parquet")
                     .outputMode("append")
                     .option("path","hdfs://internship-hadoop105185:8120/mydata")
+                    .option("checkpointLocation", "hdfs://internship-hadoop105185:8120/checkpoint")
                     .partitionBy("Date")
                     .start().awaitTermination();
 //            value.writeStream().outputMode("append").format("console").start().awaitTermination();
