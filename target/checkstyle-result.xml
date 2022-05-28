@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/GetResult.java">
+</file>
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/WriteDataToParquet.java">
+</file>
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/KafkaTask.java">
+</file>
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/Dem.java">
+</file>
+</checkstyle>
