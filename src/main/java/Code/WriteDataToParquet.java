@@ -11,14 +11,9 @@ import java.util.concurrent.TimeoutException;
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.split;
 import static org.apache.spark.sql.functions.when;
-import static org.apache.spark.sql.functions.lit;
-
+import static org.apache.spark.sql.functions.date_sub;
 public class WriteDataToParquet {
-    private static String getDay(String time){
-        String res="";
 
-        return res;
-    }
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder().master("yarn").getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
@@ -36,22 +31,24 @@ public class WriteDataToParquet {
                 .withColumn("Hour",split(col("time")," ").getItem(1))
                 .drop(col("time"));
 
+
+        value=value.withColumn("Day",when(col("Hour").geq("06:00:00"),col("Date"))
+                .when(col("Hour").leq("06:00:00"),date_sub(col("Date"),1)))
+                .drop(col("Date"));
         try {
             value.coalesce(1).writeStream().format("parquet")
                     .trigger(Trigger.ProcessingTime("1 minute"))
                     .outputMode("append")
                     .option("path","hdfs://internship-hadoop105185:8120/mydata")
                     .option("checkpointLocation", "hdfs://internship-hadoop105185:8120/checkpoint")
-                    .partitionBy("Date")
+                    .partitionBy("Day")
                     .start().awaitTermination();
-//            value.writeStream().outputMode("append").format("console").start().awaitTermination();
 
         } catch (StreamingQueryException e) {
             throw new RuntimeException(e);
         } catch (TimeoutException e) {
             throw new RuntimeException(e);
         }
-//        value=value.withColumn("Day",when((col("Hour")==="06:00:00"),lit("new Day")))
 
 
     }
