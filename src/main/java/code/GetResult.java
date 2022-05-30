@@ -11,8 +11,8 @@ import static org.apache.spark.sql.functions.col;
 public class GetResult {
 
     private static  String hdfsPath = "hdfs://internship-hadoop105185:8120/mydata/";
-    private static String date = "2022-05-28";
-    private static String path = hdfsPath + "Date=" + date + "/*";
+    private static String date = "2022-05-29";
+    private static String path = hdfsPath + "Day=" + date + "/*";
     /*
     *Ham main
     */

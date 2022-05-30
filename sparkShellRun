@@ -1,0 +1,4 @@
+package com.swoop.alchemy.spark.expressions.hll
+val df = spark.read.parquet("hdfs:/mydata/Day=2022-05-29/*")
+val res = df.groupBy(col("bannerId")).agg(hll_init_agg("guid").as("guid_hll"))
+res.select(col("bannerId"),hll_cardinality("guid_hll")).show(false);
