@@ -34,7 +34,10 @@ thì việc tính toán chính xác không quan trọng bằng việc tính toá
 
 3. Áp dụng vào bài toán:
 - Nhận data từ Kafka, lọc ra các cột cần thiết và đẩy vào HDFS theo các ngày
-![image](https://user-images.githubusercontent.com/73151391/171086103-06c23d79-1ed6-48b8-a0f3-4bef9ec8fed1.png)
+   +Data có dạng
+   ![image](https://user-images.githubusercontent.com/73151391/171086614-dbf94c6f-1feb-43bc-b184-0b7224f17fe1.png)
+   +Cấu trúc thư mục 
+   ![image](https://user-images.githubusercontent.com/73151391/171086103-06c23d79-1ed6-48b8-a0f3-4bef9ec8fed1.png)
 
 - Query từ HDFS, sử dụng HLL để ước lượng số guid theo bannerId
 
