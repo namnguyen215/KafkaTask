@@ -5,6 +5,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 import static com.swoop.alchemy.spark.expressions.hll.functions.hll_cardinality;
+import static com.swoop.alchemy.spark.expressions.hll.functions.hll_merge;
 import static com.swoop.alchemy.spark.expressions.hll.functions.hll_init_agg;
 import static org.apache.spark.sql.functions.col;
 
@@ -25,7 +26,8 @@ public class GetResult {
         Dataset<Row> df = spark.read().parquet(path);
         Dataset<Row> res = df.groupBy(col("bannerId"))
                 .agg(hll_init_agg("guid")
-                        .as("guid_hll"));
+                        .as("guid_hll"))
+                .groupBy("bannerId").agg(hll_merge("guid_hll").as("guid_hll"));
         res.select(col("bannerId"),
                         hll_cardinality("guid_hll"))
                 .show(false);

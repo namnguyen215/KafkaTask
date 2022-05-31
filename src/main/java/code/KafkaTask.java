@@ -10,8 +10,6 @@ import java.util.concurrent.TimeoutException;
 import static org.apache.spark.sql.functions.*;
 
 class KafkaTask {
-
-
     public static void main(final String[] args) {
         SparkSession spark = SparkSession
                                 .builder()

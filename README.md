@@ -26,7 +26,7 @@ Chú ý:
 -> Đếm số các giá trị riêng biệt trong một tập dữ liệu
 2. Thuật toán HyperLogLog:
 - Ước lượng số lượng các giá trị riêng biệt trong một tập dữ liệu rất lớn với sai số nhỏ.
-
+- Không nên dùng khi số lượng bản ghi nhỏ
 
 Việc sử dụng HLL trong bài toán này là chấp nhận được vì với lượng dữ liệu lớn (hàng chục triệu bản ghi)
 thì việc tính toán chính xác không quan trọng bằng việc tính toán nhanh với sai số nhỏ (2-3%)
