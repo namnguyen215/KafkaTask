@@ -19,11 +19,12 @@ Chú ý:
 * Thời gian được tính một ngày là thời gian từ 6 giờ hôm nay đến 6 giờ hôm sau. ví dụ: thời gian user vào ngày 19 là khoảng thời gian bắt đầu từ 6 giờ sáng nghày 19- 6h sáng ngày 20
 * Sừ dụng thuật toán hyperloglog để ước lượng user. (lấy thư viện java viết sẵn rồi mà quất)
 
-# Tư tưởng:
+# Xử lý bài toán:
 1. Yêu cầu bài toán:
 - Đếm số lượng user trong từng banner 
 
 -> Đếm số các giá trị riêng biệt trong một tập dữ liệu
+
 2. Thuật toán HyperLogLog:
 - Ước lượng số lượng các giá trị riêng biệt trong một tập dữ liệu rất lớn với sai số nhỏ.
 - Không nên dùng khi số lượng bản ghi nhỏ
@@ -33,5 +34,14 @@ thì việc tính toán chính xác không quan trọng bằng việc tính toá
 
 3. Áp dụng vào bài toán:
 - Nhận data từ Kafka, lọc ra các cột cần thiết và đẩy vào HDFS theo các ngày
+   +Data có dạng
+   ![image](https://user-images.githubusercontent.com/73151391/171086614-dbf94c6f-1feb-43bc-b184-0b7224f17fe1.png)
+   
+   +Cấu trúc thư mục 
+   ![image](https://user-images.githubusercontent.com/73151391/171086103-06c23d79-1ed6-48b8-a0f3-4bef9ec8fed1.png)
+
 - Query từ HDFS, sử dụng HLL để ước lượng số guid theo bannerId
+
+![image](https://user-images.githubusercontent.com/73151391/171086770-ed7380e2-bbf5-46e5-91fb-84370bab2dc5.png)
+
 
