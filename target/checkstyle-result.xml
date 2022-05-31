@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="9.3">
-<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/GetResult.java">
+<file name="/home/namnp/KafkaTask/src/main/java/code/GetResult.java">
+<error line="8" column="15" severity="error" message="Unused import - com.swoop.alchemy.spark.expressions.hll.functions.hll_merge." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 </file>
-<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/WriteDataToParquet.java">
+<file name="/home/namnp/KafkaTask/src/main/java/code/KafkaTask.java">
 </file>
-<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/KafkaTask.java">
+<file name="/home/namnp/KafkaTask/src/main/java/testCode/Dem.java">
 </file>
-<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/Dem.java">
+<file name="/home/namnp/KafkaTask/src/main/java/testCode/WriteDataToParquet.java">
 </file>
 </checkstyle>

@@ -1,8 +1,7 @@
-#Mon May 30 15:19:44 ICT 2022
-/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/GetResult.java=1653898764466
-/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/WriteDataToParquet.java=1653711393666
-/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/Dem.java=1653711408593
-module-resource*?\:checkstyle-suppressions.xml=49FF1773E536A4E55B492E72E5365133D9B4F759
-module-resource*?\:checkstyle-xpath-suppressions.xml=C168DAB5A52F63B3A53940B2528CCF6285DAA8F3
-/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/KafkaTask.java=1653833265341
-configuration*?=F3B727DD0CE5BDE662D2572784FBC9B9032F6D12
+#Tue May 31 15:37:06 ICT 2022
+/home/namnp/KafkaTask/src/main/java/testCode/Dem.java=1653984780000
+/home/namnp/KafkaTask/src/main/java/code/KafkaTask.java=1653986178000
+module-resource*?\:checkstyle-suppressions.xml=ACE57E7E6CBAFC1044F0BDDD4FEE11A48E02CF97
+module-resource*?\:checkstyle-xpath-suppressions.xml=F7A828126DF814AF0046330A39A93B3A438F4DC3
+/home/namnp/KafkaTask/src/main/java/testCode/WriteDataToParquet.java=1653984780000
+configuration*?=A2762AA72D0B4330A8008BEEAF9E63845B5FBD5A
