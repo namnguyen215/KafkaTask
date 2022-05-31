@@ -3,10 +3,18 @@
 <file name="/home/namnp/KafkaTask/src/main/java/code/GetResult.java">
 <error line="8" column="15" severity="error" message="Unused import - com.swoop.alchemy.spark.expressions.hll.functions.hll_merge." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 </file>
+<<<<<<< HEAD
 <file name="/home/namnp/KafkaTask/src/main/java/code/KafkaTask.java">
 </file>
 <file name="/home/namnp/KafkaTask/src/main/java/testCode/Dem.java">
 </file>
 <file name="/home/namnp/KafkaTask/src/main/java/testCode/WriteDataToParquet.java">
+=======
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/code/KafkaTask.java">
+</file>
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/testCode/WriteDataToParquet.java">
+</file>
+<file name="/home/nguyennam/IdeaProjects/KafkaTask/src/main/java/testCode/Dem.java">
+>>>>>>> d2aba42562d843b5fe66889fd602f0ebb0b7af68
 </file>
 </checkstyle>
