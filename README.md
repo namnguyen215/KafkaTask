@@ -41,6 +41,7 @@ thì việc tính toán chính xác không quan trọng bằng việc tính toá
    ![image](https://user-images.githubusercontent.com/73151391/171086103-06c23d79-1ed6-48b8-a0f3-4bef9ec8fed1.png)
 
 - Query từ HDFS, sử dụng HLL để ước lượng số guid theo bannerId
+
 ![image](https://user-images.githubusercontent.com/73151391/171086770-ed7380e2-bbf5-46e5-91fb-84370bab2dc5.png)
 
 
