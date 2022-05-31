@@ -19,11 +19,12 @@ Chú ý:
 * Thời gian được tính một ngày là thời gian từ 6 giờ hôm nay đến 6 giờ hôm sau. ví dụ: thời gian user vào ngày 19 là khoảng thời gian bắt đầu từ 6 giờ sáng nghày 19- 6h sáng ngày 20
 * Sừ dụng thuật toán hyperloglog để ước lượng user. (lấy thư viện java viết sẵn rồi mà quất)
 
-# Tư tưởng:
+# Xử lý bài toán:
 1. Yêu cầu bài toán:
 - Đếm số lượng user trong từng banner 
 
 -> Đếm số các giá trị riêng biệt trong một tập dữ liệu
+
 2. Thuật toán HyperLogLog:
 - Ước lượng số lượng các giá trị riêng biệt trong một tập dữ liệu rất lớn với sai số nhỏ.
 
