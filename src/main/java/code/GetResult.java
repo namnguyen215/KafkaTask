@@ -5,7 +5,6 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 import static com.swoop.alchemy.spark.expressions.hll.functions.hll_cardinality;
-import static com.swoop.alchemy.spark.expressions.hll.functions.hll_merge;
 import static com.swoop.alchemy.spark.expressions.hll.functions.hll_init_agg;
 import static org.apache.spark.sql.functions.col;
 
