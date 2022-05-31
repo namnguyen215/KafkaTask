@@ -66,8 +66,5 @@ class KafkaTask {
         } catch (TimeoutException e) {
             throw new RuntimeException(e);
         }
-
-
-
     }
 }

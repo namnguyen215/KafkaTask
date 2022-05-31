@@ -26,8 +26,7 @@ public class GetResult {
         Dataset<Row> df = spark.read().parquet(path);
         Dataset<Row> res = df.groupBy(col("bannerId"))
                 .agg(hll_init_agg("guid")
-                        .as("guid_hll"))
-                .groupBy("bannerId").agg(hll_merge("guid_hll").as("guid_hll"));
+                        .as("guid_hll"));
         res.select(col("bannerId"),
                         hll_cardinality("guid_hll"))
                 .show(false);
