@@ -61,7 +61,7 @@ public class KafkaTask {
 //                hll_cardinality("guid_hll").as("guid_hll"));
         try {
             value.coalesce(1).writeStream().format("parquet")
-                    .trigger(Trigger.ProcessingTime("10 minutes"))
+                    .trigger(Trigger.ProcessingTime("1 hour"))
                     .outputMode("append")
                     .foreachBatch((VoidFunction2<Dataset<Row>, Long>) (batchDF, batchId) ->
                             batchDF.groupBy(col("Day"), col("bannerId"))
@@ -75,7 +75,6 @@ public class KafkaTask {
                             "hdfs://internship-hadoop105185:8120/mydata")
                     .option("checkpointLocation",
                             "hdfs://internship-hadoop105185:8120/checkpoint")
-                    .partitionBy("Day")
                     .start().awaitTermination();
 
         } catch (StreamingQueryException e) {
