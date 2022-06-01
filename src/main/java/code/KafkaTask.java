@@ -12,7 +12,7 @@ import static com.swoop.alchemy.spark.expressions.hll.functions.hll_init_agg;
 import static com.swoop.alchemy.spark.expressions.hll.functions.hll_merge;
 import static org.apache.spark.sql.functions.*;
 
-class KafkaTask {
+public class KafkaTask {
     public static void main(final String[] args) {
         SparkSession spark = SparkSession
                                 .builder()
