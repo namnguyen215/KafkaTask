@@ -53,7 +53,7 @@ public class KafkaTask {
                 .when(col("Hour").lt("06:00:00"), date_sub(col("Date"), 1)))
                 .drop(col("Date"));
 
-        value = value.groupBy(col("bannerId"))
+        value = value.groupBy(col("Day"),col("bannerId"))
                 .agg(hll_init_agg("guid")
                         .as("guid_hll"))
                 .groupBy(col("bannerId"))
