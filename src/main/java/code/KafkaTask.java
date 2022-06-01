@@ -50,7 +50,7 @@ public class KafkaTask {
 
         value = value.withColumn("Day",
                         when(col("Hour").geq("06:00:00"), col("Date"))
-                .when(col("Hour").leq("06:00:00"), date_sub(col("Date"), 1)))
+                .when(col("Hour").lt("06:00:00"), date_sub(col("Date"), 1)))
                 .drop(col("Date"));
 
         value = value.groupBy(col("bannerId"))
