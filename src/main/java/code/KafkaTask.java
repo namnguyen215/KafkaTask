@@ -55,12 +55,13 @@ public class KafkaTask {
 
         value = value.groupBy(col("Day"), col("bannerId"))
                 .agg(hll_init_agg("guid")
-                        .as("guid_hll"))
-                .groupBy(col("Day"), col("bannerId"))
+                        .as("guid_hll"));
+
+        Dataset<Row> out = value.groupBy(col("Day"), col("bannerId"))
                 .agg(hll_merge("guid_hll")
                         .as("guid_hll"));
         try {
-            value.coalesce(1).writeStream().format("parquet")
+            out.coalesce(1).writeStream().format("parquet")
                     .trigger(Trigger.ProcessingTime("1 hour"))
                     .outputMode("append")
                     .option("path",
