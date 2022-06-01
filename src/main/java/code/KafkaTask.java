@@ -55,8 +55,8 @@ public class KafkaTask {
 
         value = value.groupBy(col("Day"),col("bannerId"))
                 .agg(hll_init_agg("guid")
-                        .as("guid_hll"))
-                .groupBy(col("bannerId"))
+                        .as("guid_hll"));
+        value = value.groupBy(col("bannerId"))
                 .agg(hll_merge("guid_hll")
                         .as("guid_hll"));
         try {
