@@ -8,8 +8,7 @@ import org.apache.spark.sql.streaming.Trigger;
 
 import java.util.concurrent.TimeoutException;
 
-import static com.swoop.alchemy.spark.expressions.hll.functions.hll_init_agg;
-import static com.swoop.alchemy.spark.expressions.hll.functions.hll_merge;
+import static com.swoop.alchemy.spark.expressions.hll.functions.*;
 import static org.apache.spark.sql.functions.*;
 
 public class KafkaTask {
@@ -56,12 +55,10 @@ public class KafkaTask {
         value = value.groupBy(col("Day"), col("bannerId"))
                 .agg(hll_init_agg("guid")
                         .as("guid_hll"));
-
-        Dataset<Row> out = value.groupBy(col("Day"), col("bannerId"))
-                .agg(hll_merge("guid_hll")
-                        .as("guid_hll"));
+        value.select(col("bannerId"),col("Day"), col("bannerId"),
+                hll_cardinality("guid_hll").as("guid_hll"));
         try {
-            out.coalesce(1).writeStream().format("parquet")
+            value.coalesce(1).writeStream().format("parquet")
                     .trigger(Trigger.ProcessingTime("1 hour"))
                     .outputMode("append")
                     .option("path",
