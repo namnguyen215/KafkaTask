@@ -1,5 +1,6 @@
 package code;
 
+import org.apache.spark.api.java.function.VoidFunction2;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -50,17 +51,26 @@ public class KafkaTask {
         value = value.withColumn("Day",
                         when(col("Hour").geq("06:00:00"), col("Date"))
                 .when(col("Hour").lt("06:00:00"), date_sub(col("Date"), 1)))
-                .drop(col("Date"));
+                .drop(col("Date"))
+                .drop("Hour");
 
-        value = value.groupBy(col("Day"), col("bannerId"))
-                .agg(hll_init_agg("guid")
-                        .as("guid_hll"));
-        value = value.select(col("bannerId"), col("Day"), col("bannerId"),
-                hll_cardinality("guid_hll").as("guid_hll"));
+//        value = value.groupBy(col("Day"), col("bannerId"))
+//                .agg(hll_init_agg("guid")
+//                        .as("guid_hll"));
+//        value = value.select(col("bannerId"), col("Day"), col("bannerId"),
+//                hll_cardinality("guid_hll").as("guid_hll"));
         try {
             value.coalesce(1).writeStream().format("parquet")
-                    .trigger(Trigger.ProcessingTime("1 hour"))
+                    .trigger(Trigger.ProcessingTime("10 minutes"))
                     .outputMode("append")
+                    .foreachBatch((VoidFunction2<Dataset<Row>, Long>) (batchDF, batchId) ->
+                            batchDF.groupBy(col("Day"), col("bannerId"))
+                                    .agg(hll_init_agg("guid")
+                                            .as("guid_hll"))
+                                    .groupBy(col("Day"), col("bannerId"))
+                                    .agg(hll_merge("guid_hll")
+                                            .as("guid_hll"))
+                    )
                     .option("path",
                             "hdfs://internship-hadoop105185:8120/mydata")
                     .option("checkpointLocation",
