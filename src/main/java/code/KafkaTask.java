@@ -64,7 +64,7 @@ public class KafkaTask {
                     .trigger(Trigger.ProcessingTime("1 hour"))
                     .outputMode("append")
                     .option("path",
-                            "   hdfs://internship-hadoop105185:8120/mydata")
+                            "hdfs://internship-hadoop105185:8120/mydata")
                     .option("checkpointLocation",
                             "hdfs://internship-hadoop105185:8120/checkpoint")
                     .partitionBy("Day")
