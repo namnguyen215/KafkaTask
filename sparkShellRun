@@ -3,5 +3,5 @@ val df = spark.read.parquet("hdfs:/mydata/Day=2022-05-30/*")
 val res = df.groupBy(col("bannerId")).agg(hll_init_agg("guid").as("guid_hll"))
 res.select(col("bannerId"),hll_cardinality("guid_hll")).show(false);
 
-spark-submit --class Code.GetResult --deploy-mode client --num-executors 5 --executor-cores 2 --executor-memory 2G target/KafkaTask-1.0-SNAPSHOT-jar-with-dependencies.jar
+spark-submit --class code.GetResult --deploy-mode client --num-executors 5 --executor-cores 2 --executor-memory 2G target/KafkaTask-1.0-SNAPSHOT-jar-with-dependencies.jar
 import static com.swoop.alchemy.spark.expressions.hll.functions.hll_init_agg;

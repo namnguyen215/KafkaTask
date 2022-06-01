@@ -7,6 +7,9 @@ import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.streaming.Trigger;
 
 import java.util.concurrent.TimeoutException;
+
+import static com.swoop.alchemy.spark.expressions.hll.functions.hll_init_agg;
+import static com.swoop.alchemy.spark.expressions.hll.functions.hll_merge;
 import static org.apache.spark.sql.functions.*;
 
 class KafkaTask {
@@ -50,6 +53,12 @@ class KafkaTask {
                 .when(col("Hour").leq("06:00:00"), date_sub(col("Date"), 1)))
                 .drop(col("Date"));
 
+        value = value.groupBy(col("bannerId"))
+                .agg(hll_init_agg("guid")
+                        .as("guid_hll"))
+                .groupBy(col("bannerId"))
+                .agg(hll_merge("guid_hll")
+                        .as("guid_hll"));
         try {
             value.coalesce(1).writeStream().format("parquet")
                     .trigger(Trigger.ProcessingTime("1 hour"))

@@ -24,10 +24,9 @@ public class GetResult {
         spark.sparkContext().setLogLevel("ERROR");
         Dataset<Row> df = spark.read().parquet(path);
         Dataset<Row> res = df.groupBy(col("bannerId"))
-                .agg(hll_init_agg("guid")
-                        .as("guid_hll"));
+                .agg(hll_init_agg("guid_hll"));
         res.select(col("bannerId"),
-                        hll_cardinality("guid_hll"))
+                        hll_cardinality("guid_hll").as("Number of guids"))
                 .show(false);
     }
 }
