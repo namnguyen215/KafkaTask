@@ -25,7 +25,7 @@ public class GetResult {
         spark.sparkContext().setLogLevel("ERROR");
         Dataset<Row> df = spark.read().parquet(path);
         Dataset<Row> res = df.groupBy(col("bannerId"))
-                .agg(hll_init_agg("guid_hll"));
+                .agg(hll_init_agg("guid_hll").as("guid_hll"));
         res = res.groupBy(col("bannerId"))
                 .agg(hll_merge("guid_hll"));
         res.select(col("bannerId"),

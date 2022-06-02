@@ -6,9 +6,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.streaming.StreamingQueryException;
 import org.apache.spark.sql.streaming.Trigger;
-
 import java.util.concurrent.TimeoutException;
-
 import static com.swoop.alchemy.spark.expressions.hll.functions.*;
 import static org.apache.spark.sql.functions.*;
 
