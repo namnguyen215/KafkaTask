@@ -74,7 +74,6 @@ public class KafkaTask {
                     .option("checkpointLocation",
                             "hdfs://internship-hadoop105185:8120/checkpoint")
                     .start().awaitTermination();
-
         } catch (StreamingQueryException e) {
             throw new RuntimeException(e);
         } catch (TimeoutException e) {
