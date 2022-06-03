@@ -12,7 +12,7 @@ import static org.apache.spark.sql.functions.col;
 public class GetResult {
 
     private static  String hdfsPath = "hdfs://internship-hadoop105185:8120/mydata/";
-    private static String date = "2022-05-29";
+    private static String date = "2022-06-03";
     private static String path = hdfsPath + "Day=" + date + "/*";
     /*
     *Ham main
@@ -20,14 +20,21 @@ public class GetResult {
     public static void main(final String[] args) {
         SparkSession spark = SparkSession
                 .builder()
-                .master("yarn")
+                .master("local")
                 .getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
-        Dataset<Row> df = spark.read().parquet(path);
-        Dataset<Row> res = df.groupBy(col("bannerId"))
-                .agg(hll_init_agg("guid_hll").as("guid_hll"));
-        res = res.groupBy(col("bannerId"))
-                .agg(hll_merge("guid_hll"));
+        Dataset<Row> df = spark.read()
+                .format("jdbc")
+                .option("driver", "com.mysql.cj.jdbc.Driver")
+                .option("url", "jdbc:mysql://localhost:3306/Intern2022")
+                .option("dbtable", "mydata")
+                .option("user", "namnp")
+                .option("password", "12345678")
+                .load();
+        Dataset<Row> res = df.filter(col("Day").$eq$eq$eq(date));
+//        res = res.groupBy(col("bannerId"))
+//                .agg(hll_merge("guid_hll"));        res = res.groupBy(col("bannerId"))
+//                .agg(hll_merge("guid_hll"));
         res.select(col("bannerId"),
                         hll_cardinality("guid_hll").as("Number of guids"))
                 .show(false);
